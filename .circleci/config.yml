@@ -5,7 +5,7 @@ jobs:
   # first job
   print_hello:
     docker:
-     - image: cimg/base:2022.05
+      - image: cimg/base:2022.05
     steps:
       - run: echo ">>> 1.step"
       - run: echo "hello"
@@ -26,8 +26,8 @@ jobs:
 workflows:
   # Name of workflow
   my_workflow_1:
-    # List of jobs that will run
+    
     jobs:
       - print_hello
-    requires: [print_hello]
       - print_world
+        requires: [print_hello]
