@@ -23,6 +23,7 @@ jobs:
           command: | 
             echo "--- 2.step"
             echo "world $CUSTOM_MESSAGE"
+            echo "value from UI: $UI_ENV_VAR "
             echo "----------"
  
 workflows:
