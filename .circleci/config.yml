@@ -7,9 +7,9 @@ jobs:
     docker:
       - image: cimg/base:2022.05
     steps:
-      - run: echo ">>> 1.step"
+      - run: echo "--- 1.step"
       - run: echo "hello"
-      - run: echo "<<<<<<<<<<"
+      - run: echo "----------"
 
   # second job
   print_world:
@@ -19,9 +19,9 @@ jobs:
       - run: 
           name: print world
           command: | 
-            echo ">>> 2.step"
+            echo "--- 2.step"
             echo "world"
-            echo "<<<<<<<<<<"
+            echo "----------"
  
 workflows:
   # Name of workflow
@@ -29,6 +29,5 @@ workflows:
     
     jobs:
       - print_hello
-      - print_world:
-          requires: 
-            - print_hello
+      - print_world
+          
