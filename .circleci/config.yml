@@ -26,8 +26,8 @@ jobs:
 workflows:
   # Name of workflow
   my_workflow_1:
-    
     jobs:
       - print_hello
-      - print_world
-          
+      - print_world:
+          requires: 
+            - print_hello
