@@ -6,6 +6,9 @@ jobs:
   print_hello:
     docker:
       - image: cimg/base:2022.05
+    environment:
+      CUSTOM_MESSAGE: "<< pipeline.project.git_url >> :: << pipeline.trigger_parameters.gitlab.commit_message>>"
+
     steps:
       - run: echo "--- 1.step"
       - run: echo "hello"
@@ -20,7 +23,7 @@ jobs:
           name: print world
           command: | 
             echo "--- 2.step"
-            echo "world"
+            echo "world $CUSTOM_MESSAGE"
             echo "----------"
  
 workflows:
