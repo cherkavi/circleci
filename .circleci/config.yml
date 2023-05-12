@@ -32,14 +32,14 @@ jobs:
       - image: cimg/base:2022.05
     steps:
       - persist_to_workspace:
-          root: /workspace
+          root: workspace
           paths:
             - third-job.output.txt
       - run:
           name: create file in workspace
           command: |
             echo "-- 3.step"
-            echo "third job value" > /workspace/third-job.output.txt
+            echo "third job value" > workspace/third-job.output.txt
             echo "---------"
   
   # fourth job
