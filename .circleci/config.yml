@@ -34,7 +34,8 @@ jobs:
       - run:
           name: create file in workspace
           command: |
-            mkdir workspace
+            # folder must be created !!!
+            mkdir workspace 
             echo "-- 3.step"
             echo "third job value" > workspace/third-job.output.txt
             echo "---------"
@@ -52,10 +53,10 @@ jobs:
           name: read content of file from shared workspace
           command: |
             echo "-- 4.step"
-            cat /workspace_shared/third-job.output.txt
+            cat workspace_shared/third-job.output.txt
             echo "---------"
       - attach_workspace:
-          at: /workspace_shared
+          at: workspace_shared
     
 
 workflows:
