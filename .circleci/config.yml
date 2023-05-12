@@ -39,6 +39,7 @@ jobs:
             echo "-- 3.step"
             echo "third job value" > workspace/third-job.output.txt
             echo "---------"
+      # position of persistent - after file and directory creation
       - persist_to_workspace:
           root: workspace
           paths:
@@ -49,6 +50,7 @@ jobs:
     docker:
       - image: cimg/base:2022.05
     steps:
+      # workspace should be attached BEFORE reading
       - attach_workspace:
           at: workspace_shared
       - run:
