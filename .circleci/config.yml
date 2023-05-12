@@ -49,14 +49,14 @@ jobs:
     docker:
       - image: cimg/base:2022.05
     steps:
+      - attach_workspace:
+          at: workspace_shared
       - run:
           name: read content of file from shared workspace
           command: |
             echo "-- 4.step"
             cat workspace_shared/third-job.output.txt
             echo "---------"
-      - attach_workspace:
-          at: workspace_shared
     
 
 workflows:
