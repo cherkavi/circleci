@@ -25,7 +25,38 @@ jobs:
             echo "world $CUSTOM_MESSAGE"
             echo "value from UI: $UI_ENV_VAR "
             echo "----------"
- 
+  
+  # third job
+  save_result_to_workspace:
+    docker:
+      - image: cimg/base:2022.05
+    steps:
+      - run:
+          name: create file in workspace
+          command: |
+            echo "-- 3.step"
+            echo "third job value" > /workspace/third-job.output.txt
+            echo "---------"
+      - persist_to_workspace:
+          root: /workspace
+          paths:
+            - third-job.output.txt
+  
+  # fourth job
+  read_result_from_workspace:
+    docker:
+      - image: cimg/base:2022.05
+    steps:
+      - run:
+          name: read content of file from shared workspace
+          command: |
+            echo "-- 3.step"
+            cat /workspace_shared/third-job.output.txt
+            echo "---------"
+      - attach_workspace:
+          at: /workspace_shared
+    
+
 workflows:
   # Name of workflow
   my_workflow_1:
@@ -34,3 +65,7 @@ workflows:
       - print_world:
           requires: 
             - print_hello
+      - save_result_to_workspace
+      - read_result_from_workspace
+          requires:
+            - save_result_to_workspace
