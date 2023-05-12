@@ -31,16 +31,17 @@ jobs:
     docker:
       - image: cimg/base:2022.05
     steps:
+      - run:
+          name: create file in workspace
+          command: |
+            mkdir workspace
+            echo "-- 3.step"
+            echo "third job value" > workspace/third-job.output.txt
+            echo "---------"
       - persist_to_workspace:
           root: workspace
           paths:
             - third-job.output.txt
-      - run:
-          name: create file in workspace
-          command: |
-            echo "-- 3.step"
-            echo "third job value" > workspace/third-job.output.txt
-            echo "---------"
   
   # fourth job
   read_result_from_workspace:
@@ -50,7 +51,7 @@ jobs:
       - run:
           name: read content of file from shared workspace
           command: |
-            echo "-- 3.step"
+            echo "-- 4.step"
             cat /workspace_shared/third-job.output.txt
             echo "---------"
       - attach_workspace:
