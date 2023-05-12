@@ -66,6 +66,6 @@ workflows:
           requires: 
             - print_hello
       - save_result_to_workspace
-      - read_result_from_workspace
+      - read_result_from_workspace:
           requires:
             - save_result_to_workspace
