@@ -112,16 +112,11 @@ jobs:
       - image: cimg/base:2022.05
     steps:
       - run: cat not_existing.file
-
-  except_block_for_command:
-    docker:
-      - image: cimg/base:2022.05
-    steps:
+      # next command is catch/except block for possible exit>0 command
       - run:
           name: catch block for previously failed command
           command: echo "pls, check existence of the file not_existing.file"
-          when: on_fail
-  
+          when: on_fail  
 
 workflows:
   # Name of workflow
@@ -136,6 +131,4 @@ workflows:
           requires:
             - save_result_to_workspace
       - reuse_command
-      # command for catching errors - order is not important, intentionally before 'failed'
-      - except_block_for_command      
       - fail_command
