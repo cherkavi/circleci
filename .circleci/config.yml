@@ -5,7 +5,13 @@ version: 2.1
 
 # example of single command
 print_pipeline_id: &print_pipeline_id
-  run: echo "pipeline id $CIRCLE_WORKFLOW_ID"
+  run: 
+    name: example of command 'run' as object
+    command: echo "pipeline id $CIRCLE_WORKFLOW_ID"
+    shell: /bin/bash
+    working_directory: ~/
+    when: always
+
 # example of multiple commands - not working as expected 
 print_job_frame: &print_job_frame
   - run: echo "--- 1.step"
