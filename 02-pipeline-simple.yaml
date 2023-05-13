@@ -31,3 +31,15 @@ jobs:
           keys:
             README-{{ .Branch }}-{{ .Revision }}
       - run: cat README.md
+
+workflows:
+  # Name of workflow
+  my_workflow_1:
+    jobs:
+      - build
+      - test:
+          requires: 
+            - build
+      - analyze:
+          requires:
+            - test
