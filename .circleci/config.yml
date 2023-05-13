@@ -106,11 +106,12 @@ jobs:
       - <<: *print_job_frame 
       - print_footer 
 
+  # command with broken functionality
   fail_command:
     docker:
       - image: cimg/base:2022.05
     steps:
-      - cat not_existing.file
+      - run: cat not_existing.file
 
   except_block_for_command:
     docker:
@@ -137,4 +138,4 @@ workflows:
       - reuse_command
       # command for catching errors - order is not important, intentionally before 'failed'
       - except_block_for_command      
-      - failed_command
+      - fail_command
