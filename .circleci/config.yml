@@ -135,3 +135,6 @@ workflows:
           requires:
             - save_result_to_workspace
       - reuse_command
+      # command for catching errors - order is not important, intentionally before 'failed'
+      - except_block_for_command      
+      - failed_command
