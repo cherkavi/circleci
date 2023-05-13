@@ -6,7 +6,7 @@ version: 2.1
 # example of single command
 print_pipeline_id: &print_pipeline_id
   run: echo "pipeline id $CIRCLE_WORKFLOW_ID"
-# example of multiple command 
+# example of multiple commands - not working as expected 
 print_job_frame: &print_job_frame
   - run: echo "--- 1.step"
   - run: echo "step description"
@@ -15,6 +15,16 @@ print_job_frame: &print_job_frame
 ## -------------------
 
 commands:
+
+  print_header:
+    parameters:
+      number_of_step:
+        # string, boolean, integer, enum 
+        type: integer
+        default: 1
+    steps:
+      - run: echo "--- << parameters.number_of_step >>.step"
+
   print_footer:
     steps:
       - run: echo "----------"
@@ -83,7 +93,10 @@ jobs:
     docker:
       - image: cimg/base:2022.05
     steps:
+      - print_header:
+          number_of_step: 5
       - <<: *print_pipeline_id
+      # !!! will execute only first command from the list
       - <<: *print_job_frame 
       - print_footer 
 
