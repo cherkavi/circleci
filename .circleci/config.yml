@@ -6,7 +6,7 @@ jobs:
     docker:
       - image: cimg/node:15.0.1
     steps:
-      - run: checkout
+      - checkout
       - run: echo "npm run lint"
       - save_cache:
           key:
