@@ -106,6 +106,22 @@ jobs:
       - <<: *print_job_frame 
       - print_footer 
 
+  fail_command:
+    docker:
+      - image: cimg/base:2022.05
+    steps:
+      - cat not_existing.file
+
+  except_block_for_command:
+    docker:
+      - image: cimg/base:2022.05
+    steps:
+      - run:
+          name: catch block for previously failed command
+          command: echo "pls, check existence of the file not_existing.file"
+          when: on_fail
+  
+
 workflows:
   # Name of workflow
   my_workflow_1:
