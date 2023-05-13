@@ -1,8 +1,11 @@
 # CircleCI configuration file
 version: 2.1
 
+print_pipeline_id: &print_pipeline_id
+  run: echo "pipeline id $CIRCLE_WORKFLOW_ID"
+
 jobs:
-  # first job
+  # execute command inside container
   print_hello:
     docker:
       - image: cimg/base:2022.05
@@ -11,7 +14,7 @@ jobs:
       - run: echo "hello"
       - run: echo "----------"
 
-  # second job
+  # use built in variables for creating environment variables
   print_world:
     docker:
      - image: cimg/base:2022.05
@@ -26,7 +29,7 @@ jobs:
             echo "value from UI: $UI_ENV_VAR "
             echo "----------"
   
-  # third job
+  # save results of work in workspace
   save_result_to_workspace:
     docker:
       - image: cimg/base:2022.05
@@ -45,7 +48,7 @@ jobs:
           paths:
             - third-job.output.txt
   
-  # fourth job
+  # attach ( R/O ) results of previous work to job 
   read_result_from_workspace:
     docker:
       - image: cimg/base:2022.05
@@ -60,6 +63,12 @@ jobs:
             cat workspace_shared/third-job.output.txt
             echo "---------"
     
+  # re-using command with yaml anchor: print_pipeline_id
+  reuse_command:
+    docker:
+      - image: cimg/base:2022.05
+    steps:
+      - <<: *print_pipeline_id
 
 workflows:
   # Name of workflow
