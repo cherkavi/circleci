@@ -27,7 +27,7 @@ jobs:
       - run: echo "npm run audit"
       - restore_cache:
           keys:
-            README-{{ .Branch }}-{{ .Revision }}
+            - README-{{ .Branch }}-{{ .Revision }}
       - run: cat README.md
 
 workflows:
